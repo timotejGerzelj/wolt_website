@@ -1,34 +1,16 @@
-import React, { Fragment, useState, useEffect } from "react"
-import axios from "axios"
+import React, { Fragment, useState, useEffect, useReducer } from "react"
+import { useReducedRestaurantAPI } from "hooks/useReducedRestaurantAPI"
 
 const App = () => {
-  const [data, setData] = useState({ restaurants: [] })
-  const [loading, setIsLoading] = useState(false)
-  const [error, updateError] = useState(false)
-  const [isError, setIsError] = useState(false)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsError(false)
-      setIsLoading(true)
-
-      try {
-        const res = await axios("https://raw.githubusercontent.com/woltapp/summer2020/master/restaurants.json")
-        console.log(res)
-        setData(res.data)
-      } catch (error) {
-        setIsError(true)
-      }
-      setIsLoading(false)
-    }
-    fetchData()
-  }, [])
+  const { restaurants, loader, error } = useReducedRestaurantAPI()
 
   return (
     <Fragment>
+      {loader && <p>Loading my dude</p>}
+      {error && <p>REEEEEEEEEE error</p>}
       <ul>
-        {data.restaurants.map((restaurant) => (
-          <li>
+        {restaurants.map((restaurant, i) => (
+          <li key={i}>
             <div>
               {restaurant.city},{restaurant.delivery_price},{restaurant.name}
             </div>
