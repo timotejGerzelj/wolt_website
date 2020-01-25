@@ -4,12 +4,15 @@ export const initialState = {
   },
   loading: false,
   error: false,
+  sort: false
 }
 
 export const actions = {
   INIT: "restaurantsAPI/default",
   SUCCESS: "restaurantsAPI/success",
   FAILURE: "restaurantsAPI/failure",
+  DESCENDING: "restaurantsAPI/descending",
+  ASCENDING: "restaurantsAPI/ascending"
 }
 
 export function reducer(state, action) {
@@ -19,6 +22,7 @@ export function reducer(state, action) {
         ...state,
         loading: true,
         error: false,
+        sort: false
       }
       break
     case actions.SUCCESS:
@@ -36,5 +40,21 @@ export function reducer(state, action) {
         error: true,
       }
       break
+      case actions.ASCENDING:
+        return {
+          ...state,
+          data : {
+            restaurants: state.data.restaurants.sort((obj1, obj2) => obj1.name > obj2.name ? 1 : -1), 
+          } ,
+          sort: "ASC"
+        }
+        case actions.DESCENDING:
+          return {
+            ...state,
+            data : {
+              restaurants: state.data.restaurants.sort((obj1, obj2) => obj1.name < obj2.name ? 1 : -1 ), 
+            }, 
+            sort: "DESC"
+          }
   }
 }

@@ -146,6 +146,7 @@ module.exports = {
         '48': '12rem',
         '56': '14rem',
         '64': '16rem',
+        '30': '30px'
       },
       backgroundColor: theme => theme('colors'),
       backgroundPosition: {
@@ -268,6 +269,7 @@ module.exports = {
         ...theme('spacing'),
         full: '100%',
         screen: '100vh',
+        200: "200px"
       }),
       inset: {
         '0': '0',

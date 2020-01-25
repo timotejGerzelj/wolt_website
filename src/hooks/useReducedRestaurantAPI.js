@@ -20,5 +20,7 @@ export function useReducedRestaurantAPI() {
     restaurants: state.data.restaurants,
     loader: state.loading,
     error: state.error,
+    ascending: () =>  dispatch({ type: actions.ASCENDING }) ,
+    descending: () =>  dispatch({ type: actions.DESCENDING }) 
   }
 }
